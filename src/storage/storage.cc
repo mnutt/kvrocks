@@ -170,6 +170,7 @@ rocksdb::Options Storage::InitRocksDBOptions() {
   options.compaction_style = rocksdb::CompactionStyle(config_->rocks_db.compaction_style);
   if (options.compaction_style == rocksdb::CompactionStyle::kCompactionStyleFIFO) {
     options.compaction_options_fifo.max_table_files_size = config_->rocks_db.max_table_files_size;
+    options.max_open_files = -1;
   }
   options.max_subcompactions = static_cast<uint32_t>(config_->rocks_db.max_subcompactions);
   options.max_background_flushes = config_->rocks_db.max_background_flushes;
