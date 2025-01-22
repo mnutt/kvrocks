@@ -99,6 +99,11 @@ const std::vector<ConfigEnum<BlockCacheType>> cache_types{[] {
 const std::vector<ConfigEnum<MigrationType>> migration_types{{"redis-command", MigrationType::kRedisCommand},
                                                              {"raw-key-value", MigrationType::kRawKeyValue}};
 
+const std::vector<ConfigEnum<rocksdb::CompactionStyle>> compaction_styles{
+    {"level", rocksdb::CompactionStyle::kCompactionStyleLevel},
+    {"fifo", rocksdb::CompactionStyle::kCompactionStyleFIFO},
+};
+
 std::string TrimRocksDbPrefix(std::string s) {
   if (strncasecmp(s.data(), "rocksdb.", 8) != 0) return s;
   return s.substr(8, s.size() - 8);
@@ -299,6 +304,10 @@ Config::Config() {
       {"rocksdb.rate_limiter_auto_tuned", true, new YesNoField(&rocks_db.rate_limiter_auto_tuned, true)},
       {"rocksdb.avoid_unnecessary_blocking_io", true, new YesNoField(&rocks_db.avoid_unnecessary_blocking_io, true)},
       {"rocksdb.partition_filters", true, new YesNoField(&rocks_db.partition_filters, true)},
+      {"rocksdb.compaction_style",
+       false,
+       new EnumField<rocksdb::CompactionStyle>(&rocks_db.compaction_style, compaction_styles, 
+                                              rocksdb::CompactionStyle::kCompactionStyleLevel)},
 
       /* rocksdb write options */
       {"rocksdb.write_options.sync", true, new YesNoField(&rocks_db.write_options.sync, false)},

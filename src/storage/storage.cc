@@ -167,7 +167,7 @@ rocksdb::Options Storage::InitRocksDBOptions() {
   options.statistics = rocksdb::CreateDBStatistics();
   options.stats_dump_period_sec = config_->rocks_db.stats_dump_period_sec;
   options.max_open_files = config_->rocks_db.max_open_files;
-  options.compaction_style = rocksdb::CompactionStyle::kCompactionStyleLevel;
+  options.compaction_style = rocksdb::CompactionStyle(config_->rocks_db.compaction_style);
   options.max_subcompactions = static_cast<uint32_t>(config_->rocks_db.max_subcompactions);
   options.max_background_flushes = config_->rocks_db.max_background_flushes;
   options.max_background_compactions = config_->rocks_db.max_background_compactions;
