@@ -224,6 +224,7 @@ struct Config {
     bool avoid_unnecessary_blocking_io = true;
     bool partition_filters;
     rocksdb::CompactionStyle compaction_style;
+    uint64_t max_table_files_size;
 
     struct WriteOptions {
       bool sync;

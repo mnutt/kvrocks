@@ -321,6 +321,9 @@ Config::Config() {
 
       /* rocksdb read options */
       {"rocksdb.read_options.async_io", false, new YesNoField(&rocks_db.read_options.async_io, true)},
+      {"rocksdb.max_table_files_size", 
+        false,
+        new IntWithUnitField<uint64_t>(&rocks_db.max_table_files_size, "1G", 64 * MiB, UINT64_MAX)},
   };
   for (auto &wrapper : fields) {
     auto &field = wrapper.field;
