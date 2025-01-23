@@ -137,7 +137,7 @@ rocksdb::BlockBasedTableOptions Storage::InitTableOptions() {
   rocksdb::BlockBasedTableOptions table_options;
   table_options.format_version = 5;
   table_options.index_type = rocksdb::BlockBasedTableOptions::IndexType::kTwoLevelIndexSearch;
-  table_options.filter_policy.reset(rocksdb::NewBloomFilterPolicy(10, false));
+  table_options.filter_policy.reset(rocksdb::NewBloomFilterPolicy(config_->rocks_db.bloom_filter_bits_per_key, false));
   table_options.partition_filters = config_->rocks_db.partition_filters;
   table_options.optimize_filters_for_memory = true;
   table_options.metadata_block_size = 4096;

@@ -308,6 +308,9 @@ Config::Config() {
        false,
        new EnumField<rocksdb::CompactionStyle>(&rocks_db.compaction_style, compaction_styles, 
                                               rocksdb::CompactionStyle::kCompactionStyleLevel)},
+      {"rocksdb.bloom_filter_bits_per_key", 
+        false, 
+        new IntField(&rocks_db.bloom_filter_bits_per_key, 10, 1, 100)},
 
       /* rocksdb write options */
       {"rocksdb.write_options.sync", true, new YesNoField(&rocks_db.write_options.sync, false)},
